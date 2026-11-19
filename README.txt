@@ -28,23 +28,53 @@ CÓMO EJECUTAR
 
    java -cp out Main
 
-RESULTADO FINAL ESPERADO
-------------------------
-Usuarios activos: Ana, Beto y Dani.
 
-Amistades:
-- Ana <-> Beto
-- Beto <-> Dani
+## Diagrama de la Red Social Final
 
-Seguimientos:
-- Ana -> Dani
-- Beto -> Ana
+Después de crear los usuarios, modificar las relaciones
+y eliminar a Carlos, la red social queda así:
 
-Carlos se elimina junto con todas sus conexiones.
+```mermaid
+flowchart TD
+    A((Ana))
+    B((Beto))
+    D((Dani))
 
-REGLAS IMPLEMENTADAS
---------------------
-- No se permite crear amistad consigo mismo.
-- Las amistades se registran en ambos usuarios.
-- Los seguimientos tienen una sola dirección.
-- Al eliminar un usuario, se eliminan todas las relaciones que lo mencionan.
+    A ---|Amistad| B
+    B ---|Amistad| D
+
+    A -.->|Sigue| D
+    B -.->|Sigue| A
+
+    style A fill:#2563eb,color:#fff,stroke:#1d4ed8
+    style B fill:#2563eb,color:#fff,stroke:#1d4ed8
+    style D fill:#2563eb,color:#fff,stroke:#1d4ed8
+```
+
+### Explicación
+
+**Usuarios activos:** Ana, Beto y Dani.
+
+**Amistades bidireccionales:**
+- Ana ↔ Beto
+- Beto ↔ Dani
+
+**Seguimientos unidireccionales:**
+- Ana → Dani
+- Beto → Ana
+
+**Usuario eliminado:** Carlos.
+
+Al eliminar a Carlos, desaparecen todas sus
+amistades y seguimientos asociados.
+
+### Reglas implementadas
+
+- No se permiten amistades consigo mismo.
+- Las amistades funcionan en ambos sentidos.
+- Los seguimientos funcionan en una sola dirección.
+- Al eliminar un usuario se eliminan todas sus conexiones.
+
+**Resultado:** La red social queda actualizada
+con tres usuarios y sin conexiones hacia Carlos.
+
